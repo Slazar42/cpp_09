@@ -6,7 +6,7 @@
 /*   By: slazar <slazar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 17:48:47 by slazar            #+#    #+#             */
-/*   Updated: 2025/01/19 21:29:49 by slazar           ###   ########.fr       */
+/*   Updated: 2025/01/20 17:41:48 by slazar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ class BitcoinExchange{
 		~BitcoinExchange();
 		BitcoinExchange(BitcoinExchange const &obj);
 		BitcoinExchange &operator=(BitcoinExchange const &obj);
-		void readInput(std::string path);
+		void readInput(std::string const &path);
 };
