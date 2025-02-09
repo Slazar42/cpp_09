@@ -6,7 +6,7 @@
 /*   By: slazar <slazar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 17:48:47 by slazar            #+#    #+#             */
-/*   Updated: 2025/01/20 17:41:48 by slazar           ###   ########.fr       */
+/*   Updated: 2025/02/08 18:36:42 by slazar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,6 @@ class BitcoinExchange{
 		BitcoinExchange(BitcoinExchange const &obj);
 		BitcoinExchange &operator=(BitcoinExchange const &obj);
 		void readInput(std::string const &path);
+		bool validDate(std::string const &date);
+		float get_btc_value(std::string const &date);
 };

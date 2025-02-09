@@ -6,7 +6,7 @@
 /*   By: slazar <slazar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 17:59:19 by slazar            #+#    #+#             */
-/*   Updated: 2025/01/19 21:29:36 by slazar           ###   ########.fr       */
+/*   Updated: 2025/02/08 18:40:45 by slazar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,15 @@
 
 int main(int ac,char **av)
 {
-	if (ac != 2)
+	try
 	{
-		std::cerr<< "Error: could not open file.\n";
-		return(EXIT_FAILURE);
+		if (ac != 2)
+			throw std::invalid_argument("Error: could not open file.");
+		BitcoinExchange btc;
+		btc.readInput(av[1]);
 	}
-	BitcoinExchange btc;
-	btc.readInput(av[1]);
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
 }
