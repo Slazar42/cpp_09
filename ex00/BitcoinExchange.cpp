@@ -6,7 +6,7 @@
 /*   By: slazar <slazar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 18:05:38 by slazar            #+#    #+#             */
-/*   Updated: 2025/02/08 18:46:37 by slazar           ###   ########.fr       */
+/*   Updated: 2025/02/11 19:05:41 by slazar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void BitcoinExchange::readInput(std::string const &path)
 			continue;
 		}
 		ss >> price;
-		if(price >= 2147483647)
+		if(price > 1000)
 		{
 			std::cerr << "Error: too large a number." << std::endl;
 			continue;

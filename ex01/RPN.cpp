@@ -6,7 +6,7 @@
 /*   By: slazar <slazar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 22:36:45 by slazar            #+#    #+#             */
-/*   Updated: 2025/02/09 23:29:35 by slazar           ###   ########.fr       */
+/*   Updated: 2025/02/11 19:50:56 by slazar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,50 +36,68 @@ void RPN::readInput(std::string input)
 {
 	std::istringstream iss(input);
 	std::string token;
-
 	while (iss >> token)
-		_input.push_back(token);
+		_input.push(token);
 }
 
 void RPN::calculate()
 {
-	for (size_t i = 0; i < _input.size(); i++)
+	std::stack<std::string> reversedInput; 
+	std::stack<double> tempStack;
+
+	while (!_input.empty())
 	{
-		if (_input[i] == "+" || _input[i] == "-" || _input[i] == "*" || _input[i] == "/" || _input[i] == "%")
+		reversedInput.push(_input.top());
+		_input.pop();
+	}
+
+	while (!reversedInput.empty())
+	{
+		std::string inp = reversedInput.top();
+		reversedInput.pop();
+
+		if (inp == "+" || inp == "-" || inp == "*" || inp == "/" || inp == "%")
 		{
-			if (_stack.size() < 2)
+			if (tempStack.size() < 2)
 				throw std::invalid_argument("Error: not enough operands.");
-			double a = _stack.top();
-			_stack.pop();
-			double b = _stack.top();
-			_stack.pop();
-			if (_input[i] == "+")
-				_stack.push(b + a);
-			else if (_input[i] == "-")
-				_stack.push(b - a);
-			else if (_input[i] == "*")
-				_stack.push(b * a);
-			else if (_input[i] == "/")
-				_stack.push(b / a);
-			else if (_input[i] == "%")
-				_stack.push(fmod(b, a));
+
+			double a = tempStack.top();
+			tempStack.pop();
+			double b = tempStack.top();
+			tempStack.pop();
+
+			if (inp == "+")
+				tempStack.push(b + a);
+			else if (inp == "-")
+				tempStack.push(b - a);
+			else if (inp == "*")
+				tempStack.push(b * a);
+			else if (inp == "/")
+			{
+				if (a == 0)
+					throw std::invalid_argument("Error: division by zero.");
+				tempStack.push(b / a);
+			}
+			else if (inp == "%")
+				tempStack.push(fmod(b, a));
 		}
 		else
 		{
-			std::istringstream iss(_input[i]);
+			std::istringstream iss(inp);
 			double num;
 			if (!(iss >> num))
 				throw std::invalid_argument("Error: invalid input.");
-			_stack.push(num);
+			tempStack.push(num);
 		}
 	}
-	if (_stack.size() != 1)
+
+	if (tempStack.size() != 1)
 		throw std::invalid_argument("Error: too many operands.");
-	_result = _stack.top();
+
+	_result = tempStack.top();
 }
 
 void RPN::printResult() const
 {
 	std::cout << _result << std::endl;
 }
-
