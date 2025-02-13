@@ -6,7 +6,7 @@
 /*   By: slazar <slazar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 01:13:07 by slazar            #+#    #+#             */
-/*   Updated: 2025/02/12 02:40:54 by slazar           ###   ########.fr       */
+/*   Updated: 2025/02/12 22:57:03 by slazar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int main(int ac, char **av)
 			throw std::runtime_error("Usage: ./pmergeMe [list of positive integers]\n");
 		PmergeMe pmergeMe;
 		pmergeMe.storData(ac, av);
-		pmergeMe.sortAnyList();
-		// pmergeMe.printTime();
+		pmergeMe.sortLists();
+		pmergeMe.printTime();
 	}
 	catch(const std::exception& e)
 	{

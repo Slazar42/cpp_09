@@ -6,13 +6,13 @@
 /*   By: slazar <slazar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 23:45:00 by slazar            #+#    #+#             */
-/*   Updated: 2025/02/12 02:45:01 by slazar           ###   ########.fr       */
+/*   Updated: 2025/02/13 15:14:15 by slazar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
 
-PmergeMe::PmergeMe() : deque_time(0), vec_time(0) {}
+PmergeMe::PmergeMe() {}
 
 PmergeMe::~PmergeMe() {}
 
@@ -63,32 +63,96 @@ void PmergeMe::storData(int ac, char **av)
         ss.clear();
         i++;
     }
-
 }
 
-void PmergeMe::sortAnyList()
+void PmergeMe::sortLists()
 {
-	std::chrono::time_point<std::chrono::system_clock> start, end;
-
 	for(size_t i = 0; i < non_sorted_vec.size(); ++i)
 	{
 		sorted_deque.push_back(non_sorted_vec[i]);
 		sorted_vec.push_back(non_sorted_vec[i]);
 	}
-	start = std::chrono::system_clock::now();
-	Ford_Johnson(sorted_deque);
-	end = std::chrono::system_clock::now();
-	deque_time = std::chrono::duration<double>(end - start).count();
+	std::clock_t start, end;
+	start = std::clock();
+	FordJohnson(sorted_deque);
+	end = std::clock();
+	deque_time = (double) (end - start) / (double)CLOCKS_PER_SEC;
 
-	start = std::chrono::system_clock::now();
-	Ford_Johnson(sorted_vec);
-	end = std::chrono::system_clock::now();
-	vec_time = std::chrono::duration<double>(end - start).count();
+	start = std::clock();
+	FordJohnson(sorted_vec);
+	end = std::clock();
+	vec_time = (double) (end - start) / (double)CLOCKS_PER_SEC;
+}
+template <typename T>
+void PmergeMe::sortPairs(T &lst)
+{
+	int tmp; 
+	size_t size = lst.size();
+	if (size % 2 != 0)
+		size--;
+	for (size_t i = 0; i < size; i += 2)
+	{
+		if (lst[i] > lst[i + 1])
+		{
+			tmp = lst[i];
+			lst[i] = lst[i + 1];
+			lst[i + 1] = tmp;
+		}
+	}
 }
 
 template <typename T>
-void PmergeMe::Ford_Johnson(T &lst)
+void PmergeMe::inserInlist(int n, T &lst)
 {
-	(void)lst;
-
+	typename T::iterator  high, mid, low;
+	
+	low = lst.begin();
+	high = lst.end();
+	while (low < high)
+	{
+		mid = low + (high - low) / 2;
+		if (*mid < n)
+			low = mid + 1;
+		else
+			high = mid;
+	}
+	lst.insert(low, n);
 }
+
+template <typename T>
+void PmergeMe::FordJohnson(T &lst)
+{
+	T pending;
+	PmergeMe::sortPairs(lst);
+	if (lst.size() % 2 != 0)
+	{
+		pending.push_back(lst.back());
+		lst.pop_back();
+	}
+	for(int i = lst.size() - 2; i >= 0; i -= 2)
+	{
+        pending.push_back(*(lst.begin() + i));
+        lst.erase(lst.begin() + i);
+	}
+	if(pending.size() > 2)
+		FordJohnson(lst);
+	for(size_t i = 0; i < pending.size(); i++)
+		inserInlist(pending[i], lst);
+}
+
+void PmergeMe::printTime()
+{
+	std::cout << "Before sorting: ";
+	for (size_t i = 0; i < non_sorted_vec.size(); i++)
+		std::cout << non_sorted_vec[i] << " ";
+	std::cout << std::endl;
+
+	std::cout << "After sorting: ";
+	for (size_t i = 0; i < sorted_vec.size(); i++)
+		std::cout << sorted_vec[i] << " ";
+	std::cout << std::endl;
+
+	std::cout << "Time to process a range of " << non_sorted_vec.size() << " elements with deque: " << std::fixed  << deque_time << " seconds" << std::endl;
+	std::cout << "Time to process a range of " << non_sorted_vec.size() << " elements with vector: " << std::fixed << vec_time << " seconds" << std::endl;
+}
+	

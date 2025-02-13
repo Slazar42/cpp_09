@@ -6,7 +6,7 @@
 /*   By: slazar <slazar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 23:36:27 by slazar            #+#    #+#             */
-/*   Updated: 2025/02/12 02:42:18 by slazar           ###   ########.fr       */
+/*   Updated: 2025/02/12 22:56:17 by slazar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,13 @@ class PmergeMe
         PmergeMe(const PmergeMe &obj);
         ~PmergeMe();
         void storData(int ac, char **av);
-        void sortAnyList();
+        void sortLists();
+		template <typename T>
+		void sortPairs(T &lst);
         template <typename T> 
-        void Ford_Johnson(T &lst);
-        // void printTime();
+        void FordJohnson(T &lst);
+		template <typename T>
+		void inserInlist(int n, T &lst);
+        void printTime();
 };
 
