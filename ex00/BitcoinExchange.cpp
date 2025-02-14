@@ -6,7 +6,7 @@
 /*   By: slazar <slazar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 18:05:38 by slazar            #+#    #+#             */
-/*   Updated: 2025/02/11 19:05:41 by slazar           ###   ########.fr       */
+/*   Updated: 2025/02/14 01:52:47 by slazar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ BitcoinExchange::BitcoinExchange()
 }
 
 BitcoinExchange::~BitcoinExchange() {}
+
 BitcoinExchange::BitcoinExchange(BitcoinExchange const &obj)
 {
 	*this = obj;
@@ -81,6 +82,7 @@ bool BitcoinExchange::validDate(const std::string& date)
 
     return true;
 }
+
 float BitcoinExchange::get_btc_value(const std::string &date)
 {
 	std::map<std::string, float>::iterator it = btcMap.begin();
@@ -94,6 +96,7 @@ float BitcoinExchange::get_btc_value(const std::string &date)
 	}
 	return -1;
 }
+
 void BitcoinExchange::readInput(std::string const &path)
 {
 	std::string line;

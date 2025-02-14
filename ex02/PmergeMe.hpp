@@ -6,7 +6,7 @@
 /*   By: slazar <slazar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 23:36:27 by slazar            #+#    #+#             */
-/*   Updated: 2025/02/12 22:56:17 by slazar           ###   ########.fr       */
+/*   Updated: 2025/02/14 02:37:16 by slazar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 #include <iostream>
 #include <vector>
-#include <algorithm>
 #include <deque>
-#include<sstream>
-#include <chrono>
+#include <sstream>
 
 class PmergeMe
 {
@@ -39,7 +37,8 @@ class PmergeMe
         template <typename T> 
         void FordJohnson(T &lst);
 		template <typename T>
+		double gettingTime(T &lst);
+		template <typename T>
 		void inserInlist(int n, T &lst);
         void printTime();
 };
-

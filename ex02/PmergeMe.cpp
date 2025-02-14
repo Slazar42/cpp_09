@@ -6,7 +6,7 @@
 /*   By: slazar <slazar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 23:45:00 by slazar            #+#    #+#             */
-/*   Updated: 2025/02/13 15:14:15 by slazar           ###   ########.fr       */
+/*   Updated: 2025/02/14 02:01:36 by slazar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,16 @@ void PmergeMe::storData(int ac, char **av)
     }
 }
 
+template <typename T>
+double PmergeMe::gettingTime(T &lst)
+{
+	std::clock_t start, end;
+	start = std::clock();
+	FordJohnson(lst);
+	end = std::clock();
+	return (double) (end - start) / (double)CLOCKS_PER_SEC;
+}	
+
 void PmergeMe::sortLists()
 {
 	for(size_t i = 0; i < non_sorted_vec.size(); ++i)
@@ -72,16 +82,8 @@ void PmergeMe::sortLists()
 		sorted_deque.push_back(non_sorted_vec[i]);
 		sorted_vec.push_back(non_sorted_vec[i]);
 	}
-	std::clock_t start, end;
-	start = std::clock();
-	FordJohnson(sorted_deque);
-	end = std::clock();
-	deque_time = (double) (end - start) / (double)CLOCKS_PER_SEC;
-
-	start = std::clock();
-	FordJohnson(sorted_vec);
-	end = std::clock();
-	vec_time = (double) (end - start) / (double)CLOCKS_PER_SEC;
+	deque_time = gettingTime(sorted_deque);
+	vec_time = gettingTime(sorted_vec);
 }
 template <typename T>
 void PmergeMe::sortPairs(T &lst)

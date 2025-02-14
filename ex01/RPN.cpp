@@ -6,7 +6,7 @@
 /*   By: slazar <slazar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 22:36:45 by slazar            #+#    #+#             */
-/*   Updated: 2025/02/11 19:50:56 by slazar           ###   ########.fr       */
+/*   Updated: 2025/02/14 02:14:32 by slazar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void RPN::calculate()
 {
 	std::stack<std::string> reversedInput; 
 	std::stack<double> tempStack;
+	double num;
 
 	while (!_input.empty())
 	{
@@ -55,7 +56,6 @@ void RPN::calculate()
 	{
 		std::string inp = reversedInput.top();
 		reversedInput.pop();
-
 		if (inp == "+" || inp == "-" || inp == "*" || inp == "/" || inp == "%")
 		{
 			if (tempStack.size() < 2)
@@ -84,7 +84,6 @@ void RPN::calculate()
 		else
 		{
 			std::istringstream iss(inp);
-			double num;
 			if (!(iss >> num))
 				throw std::invalid_argument("Error: invalid input.");
 			tempStack.push(num);

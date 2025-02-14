@@ -6,18 +6,15 @@
 /*   By: slazar <slazar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 22:35:39 by slazar            #+#    #+#             */
-/*   Updated: 2025/02/11 19:43:32 by slazar           ###   ########.fr       */
+/*   Updated: 2025/02/14 02:34:07 by slazar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include <iostream>
-#include <string>
 #include <stack>
-#include <vector>
 #include <sstream>
-#include <iomanip>
 #include <cmath>
 
 class RPN
